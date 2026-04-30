@@ -12,4 +12,5 @@ class AboutPageView(TemplateView):
 
 #Function based Views
 def contact_me(request):
-    return HttpResponse("Hello world from a Function Based View")
+   # return HttpResponse("Hello world from a Function Based View")
+   return render(request, "pages/contact.html")
