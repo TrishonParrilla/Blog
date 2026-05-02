@@ -35,3 +35,11 @@ Run Django project
 Django command to create apps:
 
 Windows: python manage.py startapp NAME_OF_THE_APP
+
+
+## Models in Django
+
+When we finish a model structure we need to run these commands in order:
+
+    1. py manage.py makemigrations
+    2. py manage.py migrate
