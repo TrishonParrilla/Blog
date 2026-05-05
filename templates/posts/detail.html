@@ -10,4 +10,7 @@
     <span><strong>Author: {{single_post.author}}</strong></span>
     <hr/>
     <p>{{single_post.body}}</p>
+    <a href="{% url 'post_edit' single_post.id %}" class="btn btn-secondary">Edit Post</a>
+    <a href="{% url 'post_delete' single_post.id %}" class="btn btn-danger">Delete</a>
+
 {% endblock %}
