@@ -10,6 +10,7 @@
         <ul>
             {% for post in posts %}
                 <li>{{post.id}} - {{post.title}}</li>
+                <a href="{% url 'post_detail' post.id %}">Continue Reading</a>
             {% endfor %}
         </ul>
     </div>
