@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'posts',
     'tailwind',
     'theme',
+    'accounts',
 ]
 
 TAILWIND_APP_NAME = 'theme'
@@ -130,3 +131,6 @@ STATICFILES_DIRS = [str(BASE_DIR.joinpath("static"))]
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL ='home'
