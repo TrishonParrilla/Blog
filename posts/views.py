@@ -10,6 +10,7 @@ from django.views.generic import (
 from .models import Post
 from django.contrib.auth.models import User 
 from django.urls import reverse_lazy 
+from django.contrib.auth.mixins import (LoginRequiredMixin, UserPassesTestMixin)    
 
 class PostListView(ListView): #Get request that returns lists of posts from DB
     #template_name is the attribute to render the html
@@ -20,12 +21,20 @@ class PostListView(ListView): #Get request that returns lists of posts from DB
     context_object_name = "posts"
 # Create your views here.
 
-class PostDetailView(DetailView): #Get Rquest -> single object/element
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #print(context)
+        # context["extra"] = "This is some extra context data" <-- we can add extra context and add elements with <p>{{extra}}</p>
+        return context
+
+
+
+class PostDetailView(LoginRequiredMixin, DetailView): #Get Rquest -> single object/element
     template_name = "posts/detail.html"
     model = Post
     context_object_name = "single_post"
 
-class PostCreateView(CreateView): #post request -> empty form(html)
+class PostCreateView(LoginRequiredMixin, CreateView): #post request -> empty form(html)
     template_name = "posts/new.html"
     model = Post
     # fields attrib is a list that lets us enable/disable inputs to render in html #using ajax to not rerender everything later(probably idk tbh)
@@ -35,14 +44,35 @@ class PostCreateView(CreateView): #post request -> empty form(html)
         form.instance.author = User.objects.last()
         return super().form_valid(form)
 
-class PostUpdateView(UpdateView): #Post request --> filled html form
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin,UpdateView): #Post request --> filled html form
     template_name = "posts/edit.html"
     model = Post
     fields = ["title", "subtitle", "body"]
 
-class PostDeleteView(DeleteView): #Post request to delete
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.is_authenticated:
+            if self.request.user == post.author:
+                return True
+            else:
+                return False
+        else:
+            return False
+        
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView): #Post request to delete
     template_name = "posts/delete.html"
     model = Post
     # success_url attrib redirects user if the user's req was successful
     success_url = reverse_lazy("post_list")
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.is_authenticated:
+            if self.request.user == post.author:
+                return True
+            else:
+                return False
+        else:
+            return False
 
