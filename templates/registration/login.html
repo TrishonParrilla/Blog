@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %}
     Log in
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-white">Log In</h1>
-    <form class="text-white" method='post'>
-        {% csrf_token %}
-        <div class="text-white">{{ form.as_p }}</div>
-        <input type="submit" value="Log In" class="btn btn-success">
-    </form>
+    <div class="bg-gray-800  max-w-md mx-auto mt-10 p-6 rounded-lg shadow-lg">
+        <h1 class="text-white text-2xl mb-4">Log In</h1>
+        <form class="text-[#94a3b8]" method='post'>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Log In" class="my-2 px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 cursor-pointer">
+        </form>
+    </div>
+
 {% endblock %}

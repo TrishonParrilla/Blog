@@ -49,6 +49,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin,UpdateView): #Post 
     model = Post
     fields = ["title", "subtitle", "body"]
 
+    #test func checks to see if user is authenticated and if they are an author. if it is true it renders the form, if not it redirects to login page
     def test_func(self):
         post = self.get_object()
         if self.request.user.is_authenticated:
