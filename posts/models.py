@@ -28,7 +28,7 @@ class Post(models.Model):
     def __str__(self): #to string method
         return f"{self.title}"
     
-    satus = models.ForeignKey(
+    status = models.ForeignKey(
         Status,
         on_delete=models.DO_NOTHING
     )
