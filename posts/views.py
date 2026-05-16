@@ -88,6 +88,11 @@ class PostArchivedListView(ListView):
     queryset = Post.objects.filter(status=archived_status)
     context_object_name = "posts"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_status"] = "archived"
+        return context
+
 class PostDraftListView(ListView):
     template_name = "posts/list.html"
     context_object_name = "posts"
@@ -95,4 +100,9 @@ class PostDraftListView(ListView):
     def get_queryset(self):
         draft_status = Status.objects.get(name="draft")
         return Post.objects.filter(status=draft_status)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_status"] = "draft"
+        return context
     

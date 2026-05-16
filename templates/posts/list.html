@@ -5,19 +5,25 @@
 {% endblock %}
 
 {% block content %}
-    <div class="flex w-3/5 mt-8 ml-8 p-5 bg-[#1e293b] rounded-lg shadow-md text-[#94a3b8]">
-        <div class="flex flex-col gap-4">
-            <h1 class="text-lg font-bold text-[#ffffff]">All posts</h1>
-            <div>
-                <ul class="grid grid-cols-4 gap-4">
-                    {% for post in posts %}
-                        <div class="bg-[rgba(255,255,255,0.05)] rounded-lg mb-4 py-2 border-[rgba(255,255,255,0.1)] shadow-sm">
-                            <li class="p-5 pl-5 py-3 text-[#ffffff]">{{post.id}} - {{post.title}} - {{post.status}}</li>
-                            <a class="px-5 py-2 text-blue-500 hover:underline" href="{% url 'post_detail' post.id %}">Continue Reading</a>
-                        </div>
-                    {% endfor %}
-                </ul>
+    <div class="max-w-5xl mx-auto mt-12 px-8">
+        {% if post_status == "archived" %}
+            <h1 class="text-3xl font-bold text-[#F1F5F9] mb-6">Archived Posts</h1>
+        {% elif post_status == "draft" %}
+            <h1 class="text-3xl font-bold text-[#F1F5F9] mb-6">Draft Posts</h1>
+        {% elif post_status == "published" %}
+            <h1 class="text-3xl font-bold text-[#F1F5F9] mb-6">Published Posts</h1>
+        {% else %}
+            <h1 class="text-3xl font-bold text-[#F1F5F9] mb-6">Posts</h1>
+        {% endif %}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for post in posts %}
+            <div class="bg-[#1F2937] rounded-lg shadow-xl border border-[#64748B] p-6">
+                <h2 class="text-xl font-semibold text-[#F1F5F9]">{{post.title}}</h2>
+                <p class="text-sm text-[#D1D5DB] mt-2">{{post.subtitle}}</p>
+                <a href="{% url 'post_detail' post.id %}" class="inline-block mt-4 px-4 py-2 rounded-md bg-[#3B82F6] text-white font-medium hover:bg-[#1E40AF] hover:text-white transition duration-200">Read More</a>
             </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

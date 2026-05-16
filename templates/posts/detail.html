@@ -5,12 +5,28 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Title: {{single_post.title}}</h1>
-    <h3>Subtitle: {{single_post.subtitle}}</h3>
-    <span><strong>Author: {{single_post.author}}</strong></span>
-    <hr/>
-    <p>{{single_post.body}}</p>
-    <a href="{% url 'post_edit' single_post.id %}" class="btn btn-secondary">Edit Post</a>
-    <a href="{% url 'post_delete' single_post.id %}" class="btn btn-danger">Delete</a>
+<div class="max-w-4xl mx-auto mt-12 px-8">
 
+    <!-- Header -->
+    <div class="bg-[#1E293B] rounded-t-lg border-b-4 border-[#CBD5E1] px-10 pt-10 pb-8">
+        <h1 class="text-5xl font-bold text-[#F1F5F9] leading-snug">{{single_post.title}}</h1>
+        <h3 class="mt-4 text-2xl text-[#CBD5E1] font-medium">{{single_post.subtitle}}</h3>
+        <div class="mt-6 flex items-center gap-4">
+            <span class="px-4 py-2 rounded-full bg-[#334155] text-[#E2E8F0] text-sm font-semibold">{{single_post.author}}</span>
+            <span class="text-[#94A3B8] text-sm">{{single_post.created_on}}</span>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div class="bg-[#2A3642] rounded-b-lg px-10 py-8 border border-t-0 border-[#94A3B8]">
+        <p class="text-[#E2E8F0] leading-relaxed text-lg whitespace-pre-line">{{single_post.body}}</p>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-4 mt-6">
+        <a href="{% url 'post_edit' single_post.id %}" class="px-5 py-3 rounded-lg bg-[#3B82F6] text-white font-semibold hover:bg-[#1E40AF] hover:text-white transition duration-200">Edit Post</a>
+        <a href="{% url 'post_delete' single_post.id %}" class="px-5 py-3 rounded-lg bg-[#DC2626] text-white font-semibold hover:bg-[#B91C1C] transition duration-200">Delete</a>
+    </div>
+
+</div>
 {% endblock %}
